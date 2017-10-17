@@ -4,15 +4,16 @@ var User = require('./classes/User');
 
 module.exports.saveUser = (event, context, callback) => {
     var user = new User();
-    if (!event || !event.body) {
+    if (!event || !event.body || !event.queryStringParameters.id) {
       const response = {
         statusCode: 400,
-        body: JSON.stringify({error: 'fields name and description in mandatory'})
+        body: JSON.stringify({error: 'id is required along with fields: name and description'})
       };
       return callback(null, response);
     }
     var params = JSON.parse(event.body);
-    user.save(params.name, params.description).then(data => {
+    var user_id = event.queryStringParameters.id
+    user.update(user_id, params.name, params.description).then(data => {
       const response = {
         statusCode: 200,
         body: JSON.stringify(data)
@@ -20,11 +21,7 @@ module.exports.saveUser = (event, context, callback) => {
       return callback(null, response);
     }).catch(err => {
       const response = {
-        statusCode: 500,
-        // body: JSON.stringify({
-        //   message: 'Unable to save user.',
-        //   //stack: err
-        // })
+        statusCode: 500
       };
       return callback(null, response);
     });
