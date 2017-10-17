@@ -1,0 +1,34 @@
+AWSTemplateFormatVersion : '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+
+Description: Serverless API with Gateway for listing and updating User Info
+Resources:
+  list_user:
+    Type: AWS::Serverless::Function
+    Properties:
+      Runtime: nodejs6.10
+      Handler: index.listUser
+      CodeUri: .
+      Events:
+        Api:
+          Type: Api
+          Properties:
+            Path: /list
+            Method: get
+  update_user:
+    Type: AWS::Serverless::Function
+    Properties:
+      Runtime: nodejs6.10
+      Handler: index.saveUser
+      CodeUri: .
+      Events:
+        Api:
+          Type: Api
+          Properties:
+            Path: /update
+            Method: put
+Environment:
+  Variables:
+    TABLE_NAME: my-table
+MemorySize: 1024
+Timeout: 15
