@@ -14,10 +14,10 @@ AWS Server less API with API Gateway and lambda
 
 ## Endpoints
 
-1. /list
+1. /list -
    Description: Lists all the users available in database
 
-2. /update
+2. /update -
    Description: API to update user details based on ID
    Parameters:
     Query: id (user id)
@@ -25,3 +25,8 @@ AWS Server less API with API Gateway and lambda
       Application JSON
       name: user name
       description: user description
+
+## Pending Task
+
+1. Integration with DynamoDB (Need AWS Access and Secret Key)
+2. Need to write test cases using Chai and Mocha
